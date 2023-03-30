@@ -1,0 +1,28 @@
+import express from 'express';
+import cors from 'cors';
+
+
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+
+app.all('*', function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
+});
+
+app.get('/', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    return res.json({ hello: 'pagina inicial logo será implementada' })
+});
+
+app.get('/transacao', (req, res) => {
+    return res.status(201).json({
+        msg: "Retornou o get"
+    })
+})
+app.listen(3333, () => console.log("Servidor up, ouvindo a porta 3333"));
